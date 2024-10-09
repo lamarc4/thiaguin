@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Eventus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style/reset.css">
+    <link rel="stylesheet" href="./style/style.css">
+</head>
+
+<body style="background-color: white !important;">
+    <h1 class="titulo-home" style="color: #007bff !important;">Bem-vindo ao Eventus</h1>
+
+    <div class="text-center">
+        <a href="./cadastroEvento.html" class="btn btn-primary">Adicionar Evento</a>
+    </div>
+
+    <div class="container card-container" id="event-list"></div>
+
+    <script type="module">
+        import EventFactory from './script/EventFactory.js';
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const events = JSON.parse(localStorage.getItem('events')) || [];
+
+            const eventList = document.getElementById('event-list');
+            events.forEach(eventData => {
+                const event = EventFactory.createEvent(eventData.title, eventData.date, eventData.description);
+                eventList.innerHTML += event.renderEventCard();
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
